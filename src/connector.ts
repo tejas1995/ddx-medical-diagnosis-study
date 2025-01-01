@@ -15,7 +15,7 @@ export async function log_data(data): Promise<any> {
         console.log("logged (mock)", data)
         return
     }
-    
+
     data["url_data"] = globalThis.url_data
     console.log("Data")
     if (!("study_id" in data['url_data'])) {

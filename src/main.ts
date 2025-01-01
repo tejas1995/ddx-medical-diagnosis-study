@@ -157,6 +157,126 @@ $("#button_initial_confidence_option1").on("click", () => get_initial_user_confi
 $("#button_initial_confidence_option2").on("click", () => get_initial_user_confidence(2))
 $("#button_initial_confidence_option3").on("click", () => get_initial_user_confidence(3))
 
+
+
+async function get_user_decision_prob() {
+    // Prepare inputs for the user decision model
+    let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
+    let user_initial_confidence = initial_user_confidence
+    let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
+    let user_current_trust_level = user_current_estimated_trust_level
+    if (useUserReportedTrustVal) {
+        user_current_trust_level = (user_reported_trust_level - 5) / 2.5
+    }
+    let user_decision_model_inputs = {
+        "user_ai_initial_agreement": user_ai_initial_agreement,
+        "user_initial_confidence": user_initial_confidence,
+        "ai_confidence": ai_confidence,
+        "user_current_trust_level": user_current_trust_level,
+        "timestep": question_i,
+    }
+
+    let result: any
+    try {
+        result = await $.ajax(
+            USER_MODELS_ROOT + "get_user_decision_prob",
+            {
+                data: JSON.stringify({
+                    project: "2step-trust-study",
+                    model_name: user_decision_model,
+                    payload: JSON.stringify(user_decision_model_inputs),
+                }),
+                type: 'POST',
+                contentType: 'application/json',
+            }
+        )
+    } catch (e) {
+        console.log("ERROR!")
+        console.log(e)
+    }
+    return {
+        "user_decision_model_inputs": user_decision_model_inputs, 
+        "user_acceptance_likelihood": result["pred_probs"][0][1]
+    }
+}
+
+async function examine_effect_of_trust_on_decision_making() {
+    // Prepare input variables for user decision model
+    let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
+    let user_initial_confidence = initial_user_confidence
+    let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
+    let user_current_trust_level = user_current_estimated_trust_level
+    if (useUserReportedTrustVal) {
+        user_current_trust_level = (user_reported_trust_level - 5) / 2.5
+    }
+    let user_decision_model_inputs = {
+        "user_ai_initial_agreement": user_ai_initial_agreement,
+        "user_initial_confidence": user_initial_confidence,
+        "ai_confidence": ai_confidence,
+        "user_current_trust_level": user_current_trust_level,
+        "timestep": question_i,
+    }
+    console.log("User decision model inputs: ", user_decision_model_inputs)
+
+    let aldiff_result: any
+    try {
+        aldiff_result = await $.ajax(
+            USER_MODELS_ROOT + "examine_effect_of_trust_on_decision_making",
+            {
+                data: JSON.stringify({
+                    project: "2step-trust-study",
+                    model_name: user_decision_model,
+                    payload: JSON.stringify(user_decision_model_inputs),
+                }),
+                type: 'POST',
+                contentType: 'application/json',
+            }
+        )
+    } catch (e) {
+        console.log("ERROR!")
+        console.log(e)
+    }
+
+    return aldiff_result
+}
+
+async function find_best_aiconf_to_display(user_acceptance_likelihood_neutral_trust) {
+    // Prepare input variables for user decision model
+    let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
+    let user_initial_confidence = initial_user_confidence
+    let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
+    let user_current_trust_level = user_current_estimated_trust_level
+    if (useUserReportedTrustVal) {
+        user_current_trust_level = (user_reported_trust_level - 5) / 2.5
+    }
+    let findnewconf_input_variables = {
+        "user_ai_initial_agreement": user_ai_initial_agreement,
+        "user_initial_confidence": user_initial_confidence,
+        "user_current_trust_level": user_current_trust_level,
+        "timestep": question_i,
+        "user_acceptance_likelihood_neutral_trust": user_acceptance_likelihood_neutral_trust,
+    }
+    try {
+        findnewconf_result = await $.ajax(
+            USER_MODELS_ROOT + "find_best_aiconf_to_display",
+            {
+                data: JSON.stringify({
+                    project: "2step-trust-study",
+                    model_name: user_decision_model,
+                    payload: JSON.stringify(findnewconf_input_variables),
+                }),
+                type: 'POST',
+                contentType: 'application/json',
+            }
+        )
+    } catch (e) {
+        console.log("ERROR!")
+        console.log(e)
+    }
+
+    return findnewconf_result
+}
+
 async function get_ai_assistance() {
     console.log("Getting AI assistance...")
 
@@ -172,83 +292,22 @@ async function get_ai_assistance() {
         displayed_ai_confidence = question!["ai_confidence"]
 
     } else if (AIInterventionType == "dummy") {
-        // Prepare input variables for user decision model
-        let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
-        let user_initial_confidence = initial_user_confidence
-        let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
-        let user_decision_model_inputs = {
-            "user_ai_initial_agreement": user_ai_initial_agreement,
-            "user_initial_confidence": user_initial_confidence,
-            "ai_confidence": ai_confidence,
-            "user_current_trust_level": user_current_trust_level,
-            "timestep": question_i,
-        }
-        console.log("User decision model inputs: ", user_decision_model_inputs)
+        // Dummy intervention, just show the AI's actual confidence but also gets user acceptance likelihood from model
+        let udm_result = await get_user_decision_prob()
+        let user_acceptance_likelihood = udm_result["user_acceptance_likelihood"]
+        console.log("User decision model inputs: ", udm_result["user_decision_model_inputs"])
+        console.log("User's likelihood of going with the AI's prediction: ", user_acceptance_likelihood)
 
-        let result: any
-        try {
-            result = await $.ajax(
-                USER_MODELS_ROOT + "get_user_decision_prob",
-                {
-                    data: JSON.stringify({
-                        project: "2step-trust-study",
-                        model_name: user_decision_model,
-                        payload: JSON.stringify(user_decision_model_inputs),
-                    }),
-                    type: 'POST',
-                    contentType: 'application/json',
-                }
-            )
-        } catch (e) {
-            console.log("ERROR!")
-            console.log(e)
-        }
-        let user_decision_pred_probs = result["pred_probs"][0]
-        let X = result["X"]
-        console.log("User decision model X: ", X)
-        console.log("User's likelihood of going with the AI's prediction: ", user_decision_pred_probs[1])
-        
-        displayed_ai_confidence = String(((X[2] + 0.1) * 100).toFixed(0)) + "%"  // Confidence in AI's prediction
+        displayed_ai_confidence = question!["ai_confidence"]
         intervention_details = {
-            "user_decision_model_inputs": user_decision_model_inputs,
-            "acceptance_likelihood": user_decision_pred_probs[1],
+            "user_decision_model_inputs": udm_result["user_decision_model_inputs"],
+            "acceptance_likelihood": user_acceptance_likelihood,
         }
     } else if (AIInterventionType == "confidence_inflation") {
         if (user_current_trust_level < 0) {
-            // Prepare input variables for user decision model
-            let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
-            let user_initial_confidence = initial_user_confidence
-            let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
-            let user_decision_model_inputs = {
-                "user_ai_initial_agreement": user_ai_initial_agreement,
-                "user_initial_confidence": user_initial_confidence,
-                "ai_confidence": ai_confidence,
-                "user_current_trust_level": user_current_trust_level,
-                "timestep": question_i,
-            }
-            console.log("User decision model inputs: ", user_decision_model_inputs)
-
-            let aldiff_result: any
-            try {
-                aldiff_result = await $.ajax(
-                    USER_MODELS_ROOT + "examine_effect_of_trust_on_decision_making",
-                    {
-                        data: JSON.stringify({
-                            project: "2step-trust-study",
-                            model_name: user_decision_model,
-                            payload: JSON.stringify(user_decision_model_inputs),
-                        }),
-                        type: 'POST',
-                        contentType: 'application/json',
-                    }
-                )
-            } catch (e) {
-                console.log("ERROR!")
-                console.log(e)
-            }
             
+            let aldiff_result = await examine_effect_of_trust_on_decision_making()            
             let al_diff = aldiff_result["al_diff"]
-            //console.log("Results: ", aldiff_result)
             console.log("User's likelihood of going with the AI's prediction: ", aldiff_result["actual_trust"]["acceptance_likelihood"])
             console.log("User's likelihood of going with the AI's prediction with neutral trust: ", aldiff_result["neutral_trust"]["acceptance_likelihood"])
             console.log("Acceptance Likelihood Diff: ", al_diff)
@@ -258,30 +317,8 @@ async function get_ai_assistance() {
             if (al_diff > InterventionALDiffThreshold) {
                 intervention_applied = true
                 //Find nearest AI confidence with minimizing ALDiff
-                let findnewconf_input_variables = {
-                    "user_ai_initial_agreement": user_ai_initial_agreement,
-                    "user_initial_confidence": user_initial_confidence,
-                    "user_current_trust_level": user_current_trust_level,
-                    "timestep": question_i,
-                    "user_acceptance_likelihood_neutral_trust": user_acceptance_likelihood_neutral_trust,
-                }
-                try {
-                    findnewconf_result = await $.ajax(
-                        USER_MODELS_ROOT + "find_best_aiconf_to_display",
-                        {
-                            data: JSON.stringify({
-                                project: "2step-trust-study",
-                                model_name: user_decision_model,
-                                payload: JSON.stringify(findnewconf_input_variables),
-                            }),
-                            type: 'POST',
-                            contentType: 'application/json',
-                        }
-                    )
-                } catch (e) {
-                    console.log("ERROR!")
-                    console.log(e)
-                }
+                
+                findnewconf_result = await find_best_aiconf_to_display(user_acceptance_likelihood_neutral_trust)
                 displayed_ai_confidence = String((findnewconf_result['new_conf_to_display'] * 100).toFixed(0)) + "%"  // Confidence in AI's prediction
                 intervention_details = {
                     "acceptance_likelihood_results": aldiff_result,
@@ -312,49 +349,22 @@ async function get_ai_assistance() {
             displayed_ai_confidence = question!["ai_confidence"]
             intervention_details = {"intervention_applied": false}
         }
-    } else if (AIInterventionType == "confidence_inflation_fixed") {
-        if (user_current_trust_level < 0 && initial_user_decision != question!["ai_prediction"]) {
-            // Prepare input variables for user decision model
-            let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
-            let user_initial_confidence = initial_user_confidence
-            let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
-            let user_decision_model_inputs = {
-                "user_ai_initial_agreement": user_ai_initial_agreement,
-                "user_initial_confidence": user_initial_confidence,
-                "ai_confidence": ai_confidence,
-                "user_current_trust_level": user_current_trust_level,
-                "timestep": question_i,
-            }
-            console.log("User decision model inputs: ", user_decision_model_inputs)
 
-            let aldiff_result: any
-            try {
-                aldiff_result = await $.ajax(
-                    USER_MODELS_ROOT + "examine_effect_of_trust_on_decision_making",
-                    {
-                        data: JSON.stringify({
-                            project: "2step-trust-study",
-                            model_name: user_decision_model,
-                            payload: JSON.stringify(user_decision_model_inputs),
-                        }),
-                        type: 'POST',
-                        contentType: 'application/json',
-                    }
-                )
-            } catch (e) {
-                console.log("ERROR!")
-                console.log(e)
-            }
-            
+    } else if (AIInterventionType == "confidence_inflation_fixed") {
+        // If user's current trust is negative and the user's initial decision is different from the AI's prediction
+        // then inflate the AI's confidence by a fixed amount
+
+        if (user_current_trust_level < 0 && initial_user_decision != question!["ai_prediction"]) {
+
+            let aldiff_result = await examine_effect_of_trust_on_decision_making()
             let al_diff = aldiff_result["al_diff"]
-            //console.log("Results: ", aldiff_result)
             console.log("User's likelihood of going with the AI's prediction: ", aldiff_result["actual_trust"]["acceptance_likelihood"])
             console.log("User's likelihood of going with the AI's prediction with neutral trust: ", aldiff_result["neutral_trust"]["acceptance_likelihood"])
             console.log("Acceptance Likelihood Diff: ", al_diff)
-            let user_acceptance_likelihood_neutral_trust = aldiff_result["neutral_trust"]["acceptance_likelihood"]
+
+            let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
             let new_confidence = Math.min(1, ai_confidence + InterventionFixedConfIncrease)
             displayed_ai_confidence = String(( new_confidence * 100).toFixed(0)) + "%"
-            let intervention_applied = false
             intervention_details = {
                 "acceptance_likelihood_results": aldiff_result,
                 "current_trust_level": user_current_trust_level,
@@ -368,42 +378,11 @@ async function get_ai_assistance() {
                 displayed_ai_confidence = question!["ai_confidence"]
                 intervention_details = {"intervention_applied": false}
         }
+
     } else if (AIInterventionType == "confidence_deflation") {
         if (user_current_trust_level > 0) {
-            // Prepare input variables for user decision model
-            let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
-            let user_initial_confidence = initial_user_confidence
-            let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
-            let user_decision_model_inputs = {
-                "user_ai_initial_agreement": user_ai_initial_agreement,
-                "user_initial_confidence": user_initial_confidence,
-                "ai_confidence": ai_confidence,
-                "user_current_trust_level": user_current_trust_level,
-                "timestep": question_i,
-            }
-            console.log("User decision model inputs: ", user_decision_model_inputs)
-
-            let aldiff_result: any
-            try {
-                aldiff_result = await $.ajax(
-                    USER_MODELS_ROOT + "examine_effect_of_trust_on_decision_making",
-                    {
-                        data: JSON.stringify({
-                            project: "2step-trust-study",
-                            model_name: user_decision_model,
-                            payload: JSON.stringify(user_decision_model_inputs),
-                        }),
-                        type: 'POST',
-                        contentType: 'application/json',
-                    }
-                )
-            } catch (e) {
-                console.log("ERROR!")
-                console.log(e)
-            }
-            
+            let aldiff_result = await examine_effect_of_trust_on_decision_making()
             let al_diff = aldiff_result["al_diff"]
-            //console.log("Results: ", aldiff_result)
             console.log("User's likelihood of going with the AI's prediction: ", aldiff_result["actual_trust"]["acceptance_likelihood"])
             console.log("User's likelihood of going with the AI's prediction with neutral trust: ", aldiff_result["neutral_trust"]["acceptance_likelihood"])
             console.log("Acceptance Likelihood Diff: ", al_diff)
@@ -413,30 +392,7 @@ async function get_ai_assistance() {
             if (al_diff > InterventionALDiffThreshold) {
                 intervention_applied = true
                 //Find nearest AI confidence with minimizing ALDiff
-                let findnewconf_input_variables = {
-                    "user_ai_initial_agreement": user_ai_initial_agreement,
-                    "user_initial_confidence": user_initial_confidence,
-                    "user_current_trust_level": user_current_trust_level,
-                    "timestep": question_i,
-                    "user_acceptance_likelihood_neutral_trust": user_acceptance_likelihood_neutral_trust,
-                }
-                try {
-                    findnewconf_result = await $.ajax(
-                        USER_MODELS_ROOT + "find_best_aiconf_to_display",
-                        {
-                            data: JSON.stringify({
-                                project: "2step-trust-study",
-                                model_name: user_decision_model,
-                                payload: JSON.stringify(findnewconf_input_variables),
-                            }),
-                            type: 'POST',
-                            contentType: 'application/json',
-                        }
-                    )
-                } catch (e) {
-                    console.log("ERROR!")
-                    console.log(e)
-                }
+                let findnewconf_result = await find_best_aiconf_to_display(user_acceptance_likelihood_neutral_trust)
                 displayed_ai_confidence = String((findnewconf_result['new_conf_to_display'] * 100).toFixed(0)) + "%"  // Confidence in AI's prediction
                 intervention_details = {
                     "acceptance_likelihood_results": aldiff_result,
@@ -528,7 +484,7 @@ async function get_trust_effect() {
         "predicted_trust_effect": trust_effect,
         "user_new_trust_level": user_current_estimated_trust_level,
     }
-
+    return trust_effect_prediction_data
 }
 
 function make_final_user_decision(option) {
@@ -580,7 +536,7 @@ $("#button_final_confidence_option2").on("click", () => get_final_user_confidenc
 $("#button_final_confidence_option3").on("click", () => get_final_user_confidence(3))
 
 
-function show_result() {
+async function show_result() {
 
     let correct_option: number = question!["correct_option"]
     let user_is_correct: boolean = correct_option == final_user_decision
@@ -616,14 +572,14 @@ function show_result() {
     //    balance -= bet_val/1.0
     //    balance = Math.max(0, balance)
     //}
-    get_trust_effect()
-
     $("#balance").text(`Balance: $${balance.toFixed(2)} + $1.0`)
     $("#result_span").html(message)
     //$("#button_next").show()
     $("#result_span").show()
     //$("#button_place_bet").hide()
     $("#how_confident_div").show()
+
+    trust_effect_prediction_data = await get_trust_effect()
 
     //$('#range_val').attr("disabled", "true")
 }
