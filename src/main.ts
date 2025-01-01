@@ -17,7 +17,7 @@ let final_user_decision: number = -1
 let initial_user_confidence: number = -1
 let final_user_confidence: number = -1
 let balance = 0
-let user_trust: number
+let user_reported_trust_level: number = 5
 let bet_val_ratio: number = 1
 let time_question_start: number
 let time_final_decision_start: number
@@ -27,7 +27,7 @@ let time_final_confidence_start: number
 let instruction_i: number = 0
 let count_exited_page: number = 0
 
-let user_current_trust_level: number = 0
+let user_current_estimated_trust_level: number = 0
 
 var all_user_interactions = []
 var ai_assistance_intervention_data = {}
@@ -75,7 +75,7 @@ $("#button_next").on("click", () => {
         let logged_data = {
             "question_i": question_i,
             "user_balance_post_interaction": balance,
-            "user_trust_val": user_trust,
+            "user_trust_val": user_reported_trust_level,
             "initial_user_decision": initial_user_decision,
             "final_user_decision": final_user_decision,
             "initial_user_confidence": initial_user_confidence,
@@ -101,8 +101,8 @@ $("#button_next").on("click", () => {
 });
 
 $('#range_val').on('input change', function () {
-    user_trust = ($(this).val()! as number)
-    $("#range_text").text(`After this interaction, your current trust in the AI: ${user_trust * 10} / 100.`)
+    user_reported_trust_level = ($(this).val()! as number)
+    $("#range_text").text(`After this interaction, your current trust in the AI: ${user_reported_trust_level * 10} / 100.`)
     $("#button_next").show()
 });
 
@@ -161,6 +161,12 @@ async function get_ai_assistance() {
     console.log("Getting AI assistance...")
 
     let displayed_ai_confidence = "AI is figuring out its confidence..."
+    let user_current_trust_level = user_current_estimated_trust_level
+    if (useUserReportedTrustVal) {
+        user_current_trust_level = (user_reported_trust_level - 5) / 2.5
+        console.log("Using user reported trust value: ", user_reported_trust_level)
+    }
+
     if (AIInterventionType == "none") {
         // No intervention, just show the AI assistance that is already populated in the span
         displayed_ai_confidence = question!["ai_confidence"]
@@ -306,8 +312,163 @@ async function get_ai_assistance() {
             displayed_ai_confidence = question!["ai_confidence"]
             intervention_details = {"intervention_applied": false}
         }
+    } else if (AIInterventionType == "confidence_inflation_fixed") {
+        if (user_current_trust_level < 0 && initial_user_decision != question!["ai_prediction"]) {
+            // Prepare input variables for user decision model
+            let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
+            let user_initial_confidence = initial_user_confidence
+            let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
+            let user_decision_model_inputs = {
+                "user_ai_initial_agreement": user_ai_initial_agreement,
+                "user_initial_confidence": user_initial_confidence,
+                "ai_confidence": ai_confidence,
+                "user_current_trust_level": user_current_trust_level,
+                "timestep": question_i,
+            }
+            console.log("User decision model inputs: ", user_decision_model_inputs)
+
+            let aldiff_result: any
+            try {
+                aldiff_result = await $.ajax(
+                    USER_MODELS_ROOT + "examine_effect_of_trust_on_decision_making",
+                    {
+                        data: JSON.stringify({
+                            project: "2step-trust-study",
+                            model_name: user_decision_model,
+                            payload: JSON.stringify(user_decision_model_inputs),
+                        }),
+                        type: 'POST',
+                        contentType: 'application/json',
+                    }
+                )
+            } catch (e) {
+                console.log("ERROR!")
+                console.log(e)
+            }
+            
+            let al_diff = aldiff_result["al_diff"]
+            //console.log("Results: ", aldiff_result)
+            console.log("User's likelihood of going with the AI's prediction: ", aldiff_result["actual_trust"]["acceptance_likelihood"])
+            console.log("User's likelihood of going with the AI's prediction with neutral trust: ", aldiff_result["neutral_trust"]["acceptance_likelihood"])
+            console.log("Acceptance Likelihood Diff: ", al_diff)
+            let user_acceptance_likelihood_neutral_trust = aldiff_result["neutral_trust"]["acceptance_likelihood"]
+            let new_confidence = Math.min(1, ai_confidence + InterventionFixedConfIncrease)
+            displayed_ai_confidence = String(( new_confidence * 100).toFixed(0)) + "%"
+            let intervention_applied = false
+            intervention_details = {
+                "acceptance_likelihood_results": aldiff_result,
+                "current_trust_level": user_current_trust_level,
+                "conf_actual": question!["ai_confidence"],
+                "acceptance_likelihood-actualconf_actualtrust": aldiff_result["actual_trust"]["acceptance_likelihood"],
+                "acceptance_likelihood-actualconf_neutraltrust": aldiff_result["neutral_trust"]["acceptance_likelihood"],
+                "intervention_applied": true,
+            }
+            
+        } else {
+                displayed_ai_confidence = question!["ai_confidence"]
+                intervention_details = {"intervention_applied": false}
+        }
+    } else if (AIInterventionType == "confidence_deflation") {
+        if (user_current_trust_level > 0) {
+            // Prepare input variables for user decision model
+            let user_ai_initial_agreement = Number(initial_user_decision == question!["ai_prediction"])
+            let user_initial_confidence = initial_user_confidence
+            let ai_confidence = Number(question!["ai_confidence"].replace("%", "")) / 100
+            let user_decision_model_inputs = {
+                "user_ai_initial_agreement": user_ai_initial_agreement,
+                "user_initial_confidence": user_initial_confidence,
+                "ai_confidence": ai_confidence,
+                "user_current_trust_level": user_current_trust_level,
+                "timestep": question_i,
+            }
+            console.log("User decision model inputs: ", user_decision_model_inputs)
+
+            let aldiff_result: any
+            try {
+                aldiff_result = await $.ajax(
+                    USER_MODELS_ROOT + "examine_effect_of_trust_on_decision_making",
+                    {
+                        data: JSON.stringify({
+                            project: "2step-trust-study",
+                            model_name: user_decision_model,
+                            payload: JSON.stringify(user_decision_model_inputs),
+                        }),
+                        type: 'POST',
+                        contentType: 'application/json',
+                    }
+                )
+            } catch (e) {
+                console.log("ERROR!")
+                console.log(e)
+            }
+            
+            let al_diff = aldiff_result["al_diff"]
+            //console.log("Results: ", aldiff_result)
+            console.log("User's likelihood of going with the AI's prediction: ", aldiff_result["actual_trust"]["acceptance_likelihood"])
+            console.log("User's likelihood of going with the AI's prediction with neutral trust: ", aldiff_result["neutral_trust"]["acceptance_likelihood"])
+            console.log("Acceptance Likelihood Diff: ", al_diff)
+            let user_acceptance_likelihood_neutral_trust = aldiff_result["neutral_trust"]["acceptance_likelihood"]
+
+            let intervention_applied = false
+            if (al_diff > InterventionALDiffThreshold) {
+                intervention_applied = true
+                //Find nearest AI confidence with minimizing ALDiff
+                let findnewconf_input_variables = {
+                    "user_ai_initial_agreement": user_ai_initial_agreement,
+                    "user_initial_confidence": user_initial_confidence,
+                    "user_current_trust_level": user_current_trust_level,
+                    "timestep": question_i,
+                    "user_acceptance_likelihood_neutral_trust": user_acceptance_likelihood_neutral_trust,
+                }
+                try {
+                    findnewconf_result = await $.ajax(
+                        USER_MODELS_ROOT + "find_best_aiconf_to_display",
+                        {
+                            data: JSON.stringify({
+                                project: "2step-trust-study",
+                                model_name: user_decision_model,
+                                payload: JSON.stringify(findnewconf_input_variables),
+                            }),
+                            type: 'POST',
+                            contentType: 'application/json',
+                        }
+                    )
+                } catch (e) {
+                    console.log("ERROR!")
+                    console.log(e)
+                }
+                displayed_ai_confidence = String((findnewconf_result['new_conf_to_display'] * 100).toFixed(0)) + "%"  // Confidence in AI's prediction
+                intervention_details = {
+                    "acceptance_likelihood_results": aldiff_result,
+                    "findnewconf_results": findnewconf_result,
+                    "current_trust_level": user_current_trust_level,
+                    "conf_actual": question!["ai_confidence"],
+                    "conf_new": displayed_ai_confidence,
+                    "acceptance_likelihood-actualconf_actualtrust": aldiff_result["actual_trust"]["acceptance_likelihood"],
+                    "acceptance_likelihood-actualconf_neutraltrust": aldiff_result["neutral_trust"]["acceptance_likelihood"],
+                    "acceptance_likelihood-newconf_actualtrust": findnewconf_result["new_conf_acceptance_likelihood"],
+                    "intervention_applied": true,
+                }
+            }
+            else {
+                displayed_ai_confidence = question!["ai_confidence"]
+                intervention_applied = false
+                intervention_details = {
+                    "acceptance_likelihood_results": aldiff_result,
+                    "current_trust_level": user_current_trust_level,
+                    "conf_actual": question!["ai_confidence"],
+                    "acceptance_likelihood-actualconf_actualtrust": aldiff_result["actual_trust"]["acceptance_likelihood"],
+                    "acceptance_likelihood-actualconf_neutraltrust": aldiff_result["neutral_trust"]["acceptance_likelihood"],
+                    "intervention_applied": false,
+                }
+            }            
+        } else {
+            displayed_ai_confidence = question!["ai_confidence"]
+            intervention_details = {"intervention_applied": false}
+        }
     }
 
+    intervention_details['trust_level_at_start_of_interaction'] = user_current_trust_level
     ai_assistance_intervention_data = {
         "intervention_type": AIInterventionType,
         "actual_ai_confidence": question!["ai_confidence"],
@@ -334,7 +495,7 @@ async function get_trust_effect() {
         "ai_correctness": ai_correctness,
         "final_user_correctness": final_user_correctness,
         "ai_confidence": ai_confidence,
-        "user_current_trust_level": user_current_trust_level,
+        "user_current_trust_level": user_current_estimated_trust_level,
         "timestep": question_i,
     }
     console.log("Trust effect inputs: ", trust_effect_inputs)
@@ -361,11 +522,11 @@ async function get_trust_effect() {
     console.log("Trust effect prediction result: ", result)
     let trust_effect = await result["trust_effect"]
 
-    user_current_trust_level = user_current_trust_level + trust_effect
+    user_current_estimated_trust_level = user_current_estimated_trust_level + trust_effect
     trust_effect_prediction_data = {
         "model_inputs": trust_effect_inputs,
         "predicted_trust_effect": trust_effect,
-        "user_new_trust_level": user_current_trust_level,
+        "user_new_trust_level": user_current_estimated_trust_level,
     }
 
 }
@@ -508,9 +669,9 @@ function next_question() {
         $("#range_text").text("-")
     }
     else {
-        $("#range_text").text(`Before this interaction, your trust in the AI: ${user_trust * 10} / 100.`)
+        $("#range_text").text(`Before this interaction, your trust in the AI: ${user_reported_trust_level * 10} / 100.`)
     }
-    $("#range_val").val(user_trust)
+    $("#range_val").val(user_reported_trust_level)
 
     question_i += 1
     if (question_i >= data.length) {
@@ -555,7 +716,7 @@ if (UIDFromURL != null) {
     globalThis.uid = UIDFromURL as string
     if (globalThis.uid == "prolific_random") {
         let queue_id = `${Math.floor(Math.random() * 10)}`.padStart(3, "0")
-        globalThis.uid = `${urlParams.get("prolific_queue_name")}_${queue_id}`
+        globalThis.uid = `${urlParams.get("prolific_queue_name")}/${queue_id}`
     }
 } else if (DEVMODE) {
     globalThis.uid = "demo"
@@ -567,14 +728,22 @@ if (UIDFromURL != null) {
     globalThis.uid = UID_maybe!
 }
 
-const validAIInterventions = ["none", "dummy", "confidence_inflation"]
+const validAIInterventions = ["none", "dummy", "confidence_inflation", "confidence_inflation_fixed", "confidence_deflation"]
 let AIInterventionType = urlParams.get("intervention_type")
 let InterventionALDiffThreshold = Number(urlParams.get("intervention_threshold"))
+let InterventionFixedConfIncrease = Number(urlParams.get("intervention_fixedconfincrease"))
+let useUserReportedTrustVal = urlParams.get("use_user_reported_trust_level") == "true"
 if (AIInterventionType == null) {
     AIInterventionType = "none"
 } 
 if (InterventionALDiffThreshold == null) {
     InterventionALDiffThreshold = -1
+}
+if (InterventionFixedConfIncrease == null) {
+    InterventionFixedConfIncrease = 0
+}
+if (useUserReportedTrustVal == null) {
+    useUserReportedTrustVal = false
 }
 
 //Assert that the AIAssistanceIntervention is one of the valid values
