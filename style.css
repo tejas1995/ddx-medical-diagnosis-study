@@ -1,0 +1,121 @@
+* {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #ececec;
+    color: #001f3f;
+}
+
+.main_box {
+    background-color: white;
+    border: 2px solid #1A1A1A;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    min-height: 450px;
+}
+
+#main_box_end, #main_box_end_mock {
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 1.1em;
+}
+
+#main_box_instructions img {
+    margin-top: 10px;
+    filter: brightness(90%);
+    max-width: 100%;
+}
+
+#main_box_instructions div {
+    font-style: italic;
+}
+
+
+#question_span,
+#option1_span,
+#option2_span,
+#ai_prediction_span,
+#confidence_span {
+    font-weight: normal;
+}
+
+#range_text {
+    position: relative;
+    top: -5px;
+    margin-left: 10px;
+}
+
+input[type="button"] {
+    background-color: white;
+    border: 2px solid #1A1A1A;
+    border-radius: 10px;
+    color: #3B3B3B;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    padding: 6px 6px;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+input[type="button"]:hover:not([disabled]) {
+    color: #fff;
+    background-color: #1A1A1A;
+}
+
+.button-decision-option1:hover:not([disabled]),
+.button-decision-option1[activedecision="true"] {
+    color: #fff;
+    background-color: #4c2de7;
+}
+
+.button-decision-option2:hover:not([disabled]),
+.button-decision-option2[activedecision="true"] {
+    color: #fff;
+    background-color: #4c2de7;
+}
+
+.button-confidence-option1:hover:not([disabled]),
+.button-confidence-option1[activedecision="true"] {
+    color: #fff;
+    background-color: #4c2de7;
+}
+
+.button-confidence-option2:hover:not([disabled]),
+.button-confidence-option2[activedecision="true"] {
+    color: #fff;
+    background-color: #4c2de7;
+}
+
+.button-confidence-option3:hover:not([disabled]),
+.button-confidence-option3[activedecision="true"] {
+    color: #fff;
+    background-color: #4c2de7;
+}
+
+.color_correct {
+    color: #347e32;
+}
+
+.color_incorrect {
+    color: #e63232;
+}
+
+.question_tag_trivia {
+    border-radius: 10px;
+    padding: 2px;
+    background-color: #ecdbc2;
+    font-family: Georgia;
+}
+
+.question_tag_math {
+    border-radius: 10px;
+    padding: 2px;
+    background-color: #c2ceec;
+    font-family: Georgia;
+}
