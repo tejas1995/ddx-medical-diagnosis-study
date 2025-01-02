@@ -26,9 +26,9 @@
                     </li>
                     <li>You will be shown a question, and two options. You must initially select the option you think is correct. </li>
                     <li>You will then get to see what option the AI thinks is correct, along with a confidence score. Based on this new information, you can update the option that you think is correct.</li>
-                    <li>If your final answer is correct, you gain a reward of $0.10, otherwise you do not get a reward.</li>
-                    <li>Your payment is $1.0 plus whatever you accumulate during this experiment (therefore the
-                        guaranteed minimum is $1.0, with a potential bonus of $0.10 * 30 = $3.0).</li>
+                    <li>If your final answer is correct, you gain a reward of $0.20, otherwise you do not get a reward.</li>
+                    <li>Your payment is $2.0 plus whatever you accumulate during this experiment (therefore the
+                        guaranteed minimum is $2.0, with a potential bonus of $0.20 * 15 = $3.0).</li>
                 </ul>
 
             </div>
@@ -36,7 +36,7 @@
             <br>
             <div style="text-align: right; height: 20px; margin-left: -30px">
                 <div id="progress" style="width: 150px; float: left;">(-/-)</div>
-                <div id="balance" style="width: 200px; float: right;">Balance: $0+$1.0</div>
+                <div id="balance" style="width: 200px; float: right;">Balance: $0+$2.0</div>
             </div>
         </div>
 
@@ -57,34 +57,34 @@
             <input id="button_instructions_prev" type="button" value="Previous">
             <input id="button_instructions_next" type="button" value="Next" style="margin-bottom: 10px">
 
-            <div id="instructions_0">Welcome to our user study. You will be trying to answer questions with the assistance of an AI system. We will first walk you through an example question with
-                images and afterwards you will annotate 30 examples.</div>
+            <div id="instructions_0">Welcome to our user study. <b>You will be trying to make diagnoses based on patient symptoms, with the assistance of an AI system.</b> We will first walk you through an example diagnosis with
+                images and afterwards you will diagnose 15 patients.</div>
             <div id="instructions_1">
-                Each example consists of a <b>question</b> and <b>two options</b>. The question will involve scientific knowledge.
+                Each example consists of a <b>set of patient symptoms</b> and <b>four possible conditions</b>, one of which is the correct diagnosis.
 
                 <img src="img/instructions_1.png">
             </div>
             <div id="instructions_2">
-                In the first step, you must select the option you think is correct, based on your own knowledge. You must also mark your confidence in your answer.
+                <b>In the first step, you must select the diagnosis you think is correct, based on your own knowledge.</b> You must also mark your confidence in your answer.
 
                 <img src="img/instructions_2.png">
             </div>
             <div id="instructions_3">
-                After your decision, you will be shown a predicted answer from an AI system, along with a confidence score (out of 100). <br>
-                Based on the AI system's prediction and confidence, you must select the option that you now think is correct, along with your confidence in the selected answer.
+                <b>After your decision, you will be shown a predicted diagnosis from an AI system, along with a confidence score (out of 100).</b> <br>
+                Based on the AI system's prediction and confidence, you must select the diagnosis that you now think is correct, along with your confidence in the selected answer.
 
                 <img src="img/instructions_3.png">
             </div>
             <div id="instructions_4">
-                You will then get to see if your final answer and the AI system's prediction were correct or not. <br> 
-                If your final answer was correct, you will receive a reward of $0.10. If your final selection was incorrect, you will not receive a reward. <br>
-                The guaranteed minimum is $1.0 regardless of your performance, but you can earn more money if your answers are correct (the additional money will be paid out as bonuses on Prolific).
+                <b>You will then get to see if your final diagnosis and the AI system's prediction were correct or not.</b> <br> 
+                If your final diagnosis was correct, you will receive a reward of $0.20. If your final selection was incorrect, you will not receive a reward. <br>
+                The guaranteed minimum is $2.0 regardless of your performance, but you can earn more money if your answers are correct (the additional money will be paid out as bonuses on Prolific).
                 <br>
                 <img src="img/instructions_4.png">
             </div>
             <div id="instructions_5">
-                Finally, you will decide how much you trust the AI to help you with this task, on a scale from 0 to 100. <br>
-                This trust will be based on the interactions you have had with the AI system so far. <br>
+                Finally, you will decide how much you trust the AI to help you with this diagnosis task, on a scale from 0 to 100. <br>
+                <b>This trust will be based on the interactions you have had with the AI system so far.</b> <br>
                 After selecting a trust level, you can move on to the next question.
                 <br>
                 <img src="img/instructions_5.png">
@@ -95,7 +95,7 @@
                 <span class='color_incorrect'><b>You are not permitted to leave this tab</b></span> for the duration of the experiment. This will be
                 monitored and violation of this can result in your submission being rejected.
                 <span class='color_incorrect'><b>Do not use other external tools to help you with the answer</b></span>: rely solely on your own knowledge and the AI in this study. 
-                The average time of the experiment is 5--10 minutes.
+                The average time of the experiment is 15--20 minutes.
                 <br><br>
                 You will not be paid if you already participated in this study before.
                 <br><br>
@@ -109,13 +109,17 @@
         </div>
 
         <div class="main_box" id="main_box_experiment" style="display: none">
-            <h3>Question: <span id="question_span"></span></h3>
+            <h3>Patient Symptoms: <span id="question_span"></span></h3>
             <h3>Option 1: <span id="option1_span"></span></h3>
             <h3>Option 2: <span id="option2_span"></span></h3>
+            <h3>Option 3: <span id="option3_span"></span></h3>
+            <h3>Option 4: <span id="option4_span"></span></h3>
             <div id="initial_user_decision_div">
-                <p style="font-size: 1.17em;">Which of the two options do you think is correct?
+                <p style="font-size: 1.17em;">What do you think is the correct diagnosis?
                 <input id="button_initial_decision_option1" type="button" class="button-neutral button-decision-option1" value="Option 1">
                 <input id="button_initial_decision_option2" type="button" class="button-neutral button-decision-option2" value="Option 2">
+                <input id="button_initial_decision_option3" type="button" class="button-neutral button-decision-option3" value="Option 3">
+                <input id="button_initial_decision_option4" type="button" class="button-neutral button-decision-option4" value="Option 4">
                 </p>
             </div>
             <div id="initial_user_confidence_div">
@@ -131,9 +135,11 @@
                 <h3>AI Confidence: <span id="ai_confidence_span">72%</span></h3>
             </div>
             <div id="final_user_decision_div">
-                <p style="font-size: 1.17em;">After looking at the AI prediction and confidence, what do you think is the correct option?
+                <p style="font-size: 1.17em;">After looking at the AI prediction and confidence, what do you think is the correct diagnosis?
                 <input id="button_final_decision_option1" type="button" class="button-neutral button-decision-option1" value="Option 1">
                 <input id="button_final_decision_option2" type="button" class="button-neutral button-decision-option2" value="Option 2">
+                <input id="button_final_decision_option3" type="button" class="button-neutral button-decision-option3" value="Option 3">
+                <input id="button_final_decision_option4" type="button" class="button-neutral button-decision-option4" value="Option 4">
                 </p>
             </div>
             <div id="final_user_confidence_div">

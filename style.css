@@ -36,6 +36,8 @@ body {
 #question_span,
 #option1_span,
 #option2_span,
+#option3_span,
+#option4_span,
 #ai_prediction_span,
 #confidence_span {
     font-weight: normal;
@@ -69,34 +71,27 @@ input[type="button"]:hover:not([disabled]) {
 }
 
 .button-decision-option1:hover:not([disabled]),
-.button-decision-option1[activedecision="true"] {
-    color: #fff;
-    background-color: #4c2de7;
-}
-
+.button-decision-option1[activedecision="true"],
 .button-decision-option2:hover:not([disabled]),
-.button-decision-option2[activedecision="true"] {
+.button-decision-option2[activedecision="true"],
+.button-decision-option3:hover:not([disabled]),
+.button-decision-option3[activedecision="true"],
+.button-decision-option4:hover:not([disabled]),
+.button-decision-option4[activedecision="true"] {
     color: #fff;
     background-color: #4c2de7;
 }
 
 .button-confidence-option1:hover:not([disabled]),
-.button-confidence-option1[activedecision="true"] {
-    color: #fff;
-    background-color: #4c2de7;
-}
-
+.button-confidence-option1[activedecision="true"], 
 .button-confidence-option2:hover:not([disabled]),
-.button-confidence-option2[activedecision="true"] {
-    color: #fff;
-    background-color: #4c2de7;
-}
-
+.button-confidence-option2[activedecision="true"], 
 .button-confidence-option3:hover:not([disabled]),
 .button-confidence-option3[activedecision="true"] {
     color: #fff;
     background-color: #4c2de7;
 }
+
 
 .color_correct {
     color: #347e32;
