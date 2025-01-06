@@ -109,47 +109,45 @@ $('#range_val').on('input change', function () {
 function make_initial_user_decision(option) {
     time_initial_confidence_start = Date.now()
     initial_user_decision = option
-    assert(option == 1 || option == 2, "Invalid option!")
-    if (option == 1) {
-        $("#button_initial_decision_option1").attr("activedecision", "true")
-        $("#button_initial_decision_option2").removeAttr("activedecision")
-    } else {
-        $("#button_initial_decision_option1").removeAttr("activedecision")
-        $("#button_initial_decision_option2").attr("activedecision", "true")
+    assert(option == 1 || option == 2 || option == 3 || option == 4, "Invalid option!")
+
+    // Remove activedecision for all buttons except the selected one
+    $(`#button_initial_decision_option${option}`).attr("activedecision", "true")
+    for (let i = 1; i <= 4; i++) {
+        if (i != option) {
+            $(`#button_initial_decision_option${i}`).removeAttr("activedecision")
+        }
+        $(`#button_initial_decision_option${i}`).attr("disabled", "true")
     }
+    console.log("User's initial decision: Option ", option)
+    
     $("#initial_user_confidence_div").show()
-    $("#button_initial_decision_option1").attr("disabled", "true")
-    $("#button_initial_decision_option2").attr("disabled", "true")
     $("#button_initial_confidence_option1").removeAttr("disabled")
     $("#button_initial_confidence_option2").removeAttr("disabled")
     $("#button_initial_confidence_option3").removeAttr("disabled")
 }
 $("#button_initial_decision_option1").on("click", () => make_initial_user_decision(1))
 $("#button_initial_decision_option2").on("click", () => make_initial_user_decision(2))
+$("#button_initial_decision_option3").on("click", () => make_initial_user_decision(3))
+$("#button_initial_decision_option4").on("click", () => make_initial_user_decision(4))
 
 function get_initial_user_confidence(conf_level) {
     time_final_decision_start = Date.now()
     initial_user_confidence = conf_level
     assert(conf_level == 1 || conf_level == 2 || conf_level == 3, "Invalid option!")
-    if (conf_level == 1) {
-        $("#button_initial_confidence_option1").attr("activedecision", "true")
-        $("#button_initial_confidence_option2").removeAttr("activedecision")
-        $("#button_initial_confidence_option3").removeAttr("activedecision")
-    } else if (conf_level == 2) {
-        $("#button_initial_confidence_option1").removeAttr("activedecision")
-        $("#button_initial_confidence_option2").attr("activedecision", "true")
-        $("#button_initial_confidence_option3").removeAttr("activedecision")
-    } else {
-        $("#button_initial_confidence_option1").removeAttr("activedecision")
-        $("#button_initial_confidence_option2").removeAttr("activedecision")
-        $("#button_initial_confidence_option3").attr("activedecision", "true")
+    // Remove activedecision for all buttons except the selected one. Disable all buttons.
+    for (let i = 1; i <= 3; i++) {
+        if (i != conf_level) {
+            $(`#button_initial_confidence_option${i}`).removeAttr("activedecision")
+        }
+        $(`#button_initial_confidence_option${i}`).attr("disabled", "true")
     }
+    $(`#button_initial_confidence_option${conf_level}`).attr("activedecision", "true")
 
-    $("#button_initial_confidence_option1").attr("disabled", "true")
-    $("#button_initial_confidence_option2").attr("disabled", "true")
-    $("#button_initial_confidence_option3").attr("disabled", "true")
     $("#button_final_decision_option1").removeAttr("disabled")
     $("#button_final_decision_option2").removeAttr("disabled")    
+    $("#button_final_decision_option3").removeAttr("disabled")    
+    $("#button_final_decision_option4").removeAttr("disabled")    
 
     get_ai_assistance()
 }
@@ -182,7 +180,7 @@ async function get_user_decision_prob() {
             USER_MODELS_ROOT + "get_user_decision_prob",
             {
                 data: JSON.stringify({
-                    project: "2step-trust-study",
+                    project: "medical-diagnosis-study",
                     model_name: user_decision_model,
                     payload: JSON.stringify(user_decision_model_inputs),
                 }),
@@ -224,7 +222,7 @@ async function examine_effect_of_trust_on_decision_making() {
             USER_MODELS_ROOT + "examine_effect_of_trust_on_decision_making",
             {
                 data: JSON.stringify({
-                    project: "2step-trust-study",
+                    project: "medical-diagnosis-study",
                     model_name: user_decision_model,
                     payload: JSON.stringify(user_decision_model_inputs),
                 }),
@@ -261,7 +259,7 @@ async function find_best_aiconf_to_display(user_acceptance_likelihood_neutral_tr
             USER_MODELS_ROOT + "find_best_aiconf_to_display",
             {
                 data: JSON.stringify({
-                    project: "2step-trust-study",
+                    project: "medical-diagnosis-study",
                     model_name: user_decision_model,
                     payload: JSON.stringify(findnewconf_input_variables),
                 }),
@@ -462,7 +460,7 @@ async function get_trust_effect() {
             USER_MODELS_ROOT + "get_trust_effect",
             {
                 data: JSON.stringify({
-                    project: "2step-trust-study",
+                    project: "medical-diagnosis-study",
                     model_name: trust_effect_model,
                     payload: JSON.stringify(trust_effect_inputs),
                 }),
@@ -490,45 +488,40 @@ async function get_trust_effect() {
 function make_final_user_decision(option) {
     time_final_confidence_start = Date.now()
     final_user_decision = option
-    assert(option == 1 || option == 2, "Invalid option!")
-    if (option == 1) {
-        $("#button_final_decision_option1").attr("activedecision", "true")
-        $("#button_final_decision_option2").removeAttr("activedecision")
-    } else {
-        $("#button_final_decision_option1").removeAttr("activedecision")
-        $("#button_final_decision_option2").attr("activedecision", "true")
+    assert(option == 1 || option == 2 || option == 3 || option == 4, "Invalid option!")
+
+    // Remove activedecision for all buttons except the selected one
+    for (let i = 1; i <= 4; i++) {
+        if (i != option) {
+            $(`#button_final_decision_option${i}`).removeAttr("activedecision")
+        }
+        $(`#button_final_decision_option${i}`).attr("disabled", "true")
     }
+    $(`#button_final_decision_option${option}`).attr("activedecision", "true")
+
     $("#final_user_confidence_div").show()
-    $("#button_final_decision_option1").attr("disabled", "true")
-    $("#button_final_decision_option2").attr("disabled", "true")
     $("#button_final_confidence_option1").removeAttr("disabled")
     $("#button_final_confidence_option2").removeAttr("disabled")
     $("#button_final_confidence_option3").removeAttr("disabled")
 }
 $("#button_final_decision_option1").on("click", () => make_final_user_decision(1))
 $("#button_final_decision_option2").on("click", () => make_final_user_decision(2))
+$("#button_final_decision_option3").on("click", () => make_final_user_decision(3))
+$("#button_final_decision_option4").on("click", () => make_final_user_decision(4))
 
 function get_final_user_confidence(conf_level) {
     time_trust_decision_start = Date.now()
     final_user_confidence = conf_level
     assert(conf_level == 1 || conf_level == 2 || conf_level == 3, "Invalid option!")
-    if (conf_level == 1) {
-        $("#button_final_confidence_option1").attr("activedecision", "true")
-        $("#button_final_confidence_option2").removeAttr("activedecision")
-        $("#button_final_confidence_option3").removeAttr("activedecision")
-    } else if (conf_level == 2) {
-        $("#button_final_confidence_option1").removeAttr("activedecision")
-        $("#button_final_confidence_option2").attr("activedecision", "true")
-        $("#button_final_confidence_option3").removeAttr("activedecision")
-    } else {
-        $("#button_final_confidence_option1").removeAttr("activedecision")
-        $("#button_final_confidence_option2").removeAttr("activedecision")
-        $("#button_final_confidence_option3").attr("activedecision", "true")
+    // Remove activedecision for all buttons except the selected one
+    for (let i = 1; i <= 3; i++) {
+        if (i != conf_level) {
+            $(`#button_final_confidence_option${i}`).removeAttr("activedecision")
+        }
+        $(`#button_final_confidence_option${i}`).attr("disabled", "true")
     }
+    $(`#button_final_confidence_option${conf_level}`).attr("activedecision", "true")
 
-    $("#button_final_confidence_option1").attr("disabled", "true")
-    $("#button_final_confidence_option2").attr("disabled", "true")
-    $("#button_final_confidence_option3").attr("disabled", "true")
     show_result()
 }
 $("#button_final_confidence_option1").on("click", () => get_final_user_confidence(1))
@@ -539,10 +532,11 @@ $("#button_final_confidence_option3").on("click", () => get_final_user_confidenc
 async function show_result() {
 
     let correct_option: number = question!["correct_option"]
+    let correct_option_str: string = question![`option${correct_option}`]
     let user_is_correct: boolean = correct_option == final_user_decision
 
     let ai_is_correct: boolean = question!["ai_is_correct"]
-    let message = "Correct answer: <b>Option " + correct_option + "</b>.<br>"
+    let message = "Correct answer: <b>Option " + correct_option + ": " + correct_option_str + "</b>.<br>"
     if (user_is_correct) {
         message += "You picked Option " + final_user_decision + ", which was <span class='color_correct'><b>correct</b></span>.<br>"
     }
@@ -556,8 +550,8 @@ async function show_result() {
         message += "The AI picked Option " + question!["ai_prediction"] + ", which was <span class='color_incorrect'><b>incorrect</b></span>.<br>"
     }
     if (user_is_correct) {
-        message += "<span class='color_correct'><b>You receive a reward of $0.10.</b></span>"
-        balance += 0.1
+        message += "<span class='color_correct'><b>You receive a reward of $0.20.</b></span>"
+        balance += 0.2
     }
     else {
         message += "<span class='color_incorrect'><b>You do not receive any reward.</b></span>"
@@ -572,7 +566,7 @@ async function show_result() {
     //    balance -= bet_val/1.0
     //    balance = Math.max(0, balance)
     //}
-    $("#balance").text(`Balance: $${balance.toFixed(2)} + $1.0`)
+    $("#balance").text(`Balance: $${balance.toFixed(2)} + $2.0`)
     $("#result_span").html(message)
     //$("#button_next").show()
     $("#result_span").show()
@@ -588,29 +582,19 @@ async function show_result() {
 
 function next_question() {
     // restore previous state of UI
-    $("#button_initial_decision_option1").removeAttr("activedecision")
-    $("#button_initial_decision_option2").removeAttr("activedecision")
-    $("#button_initial_decision_option1").removeAttr("disabled")
-    $("#button_initial_decision_option2").removeAttr("disabled")
+    for (let i = 1; i <= 4; i++) {
+        $(`#button_initial_decision_option${i}`).removeAttr("activedecision")
+        $(`#button_initial_decision_option${i}`).removeAttr("disabled")
+        $(`#button_final_decision_option${i}`).removeAttr("activedecision")
+        $(`#button_final_decision_option${i}`).removeAttr("disabled")
+    }
 
-    $("#button_initial_confidence_option1").removeAttr("activedecision")
-    $("#button_initial_confidence_option2").removeAttr("activedecision")
-    $("#button_initial_confidence_option3").removeAttr("activedecision")
-    $("#button_initial_confidence_option1").removeAttr("disabled")
-    $("#button_initial_confidence_option2").removeAttr("disabled")
-    $("#button_initial_confidence_option3").removeAttr("disabled")
-
-    $("#button_final_decision_option1").removeAttr("activedecision")
-    $("#button_final_decision_option2").removeAttr("activedecision")
-    $("#button_final_decision_option1").removeAttr("disabled")
-    $("#button_final_decision_option2").removeAttr("disabled")
-
-    $("#button_final_confidence_option1").removeAttr("activedecision")
-    $("#button_final_confidence_option2").removeAttr("activedecision")
-    $("#button_final_confidence_option3").removeAttr("activedecision")
-    $("#button_final_confidence_option1").removeAttr("disabled")
-    $("#button_final_confidence_option2").removeAttr("disabled")
-    $("#button_final_confidence_option3").removeAttr("disabled")
+    for (let i = 1; i <= 3; i++) {
+        $(`#button_initial_confidence_option${i}`).removeAttr("activedecision")
+        $(`#button_initial_confidence_option${i}`).removeAttr("disabled")
+        $(`#button_final_confidence_option${i}`).removeAttr("activedecision")
+        $(`#button_final_confidence_option${i}`).removeAttr("disabled")
+    }
 
     $("#ai_assistance_div").hide()
     $("#initial_user_confidence_div").hide()
@@ -644,6 +628,8 @@ function next_question() {
     $("#question_span").html(question!["question"])
     $("#option1_span").html(question!["option1"])
     $("#option2_span").html(question!["option2"])
+    $("#option3_span").html(question!["option3"])
+    $("#option4_span").html(question!["option4"])
     //$("#ai_prediction_span").html("Option " + question!["ai_prediction"])
     //$("#ai_confidence_span").html(question!["ai_confidence"])
 
