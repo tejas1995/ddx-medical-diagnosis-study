@@ -550,8 +550,8 @@ async function show_result() {
         message += "The AI picked Option " + question!["ai_prediction"] + ", which was <span class='color_incorrect'><b>incorrect</b></span>.<br>"
     }
     if (user_is_correct) {
-        message += "<span class='color_correct'><b>You receive a reward of $0.20.</b></span>"
-        balance += 0.2
+        message += "<span class='color_correct'><b>You receive a reward of $0.10.</b></span>"
+        balance += 0.1
     }
     else {
         message += "<span class='color_incorrect'><b>You do not receive any reward.</b></span>"
