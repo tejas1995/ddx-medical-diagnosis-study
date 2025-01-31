@@ -39,7 +39,9 @@ body {
 #option3_span,
 #option4_span,
 #ai_prediction_span,
-#confidence_span {
+#confidence_span, 
+#ai_explanation_span,
+#ai_contrastive_explanation_span {
     font-weight: normal;
 }
 
