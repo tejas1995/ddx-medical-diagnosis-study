@@ -9,7 +9,9 @@
         "correct_option": 3,
         "ai_prediction": 4,
         "ai_confidence": "71%",
-        "ai_is_correct": false
+        "ai_is_correct": false,
+        "ai_explanation": "Pancreatic neoplasm is the correct diagnosis because the patient's pain is located in areas consistent with referred pain from the pancreas, such as the epigastric and hypochondrium regions. The characteristics of the pain, including its haunting and sickening nature, align with the severe and persistent pain often associated with pancreatic cancer. Additionally, the worsening of symptoms after eating and alleviation when sitting up are indicative of pancreatic issues, as these symptoms can be related to the pancreas's role in digestion and the",
+        "ai_contrastive_explanation": "While I think pancreatic neoplasm is the correct diagnosis due to the age and complex pain description of the patient, it may not be the best fit because the pain is more commonly associated with gastrointestinal issues such as gastroesophageal reflux disease (GERD). Additionally, the pain being alleviated by sitting up and worsening after eating aligns more with GERD than with pancreatic neoplasm, which typically exhibits more persistent and severe pain symptoms not significantly altered by position or eating."
     },
     {
         "qid": 342056,
@@ -21,7 +23,9 @@
         "correct_option": 1,
         "ai_prediction": 2,
         "ai_confidence": "67%",
-        "ai_is_correct": false
+        "ai_is_correct": false,
+        "ai_explanation": "Scombroid food poisoning is the correct diagnosis because it can cause symptoms such as chest pain and difficulty breathing, which align with the patient's presentation. The rapid onset of symptoms, including the knife-like chest pain and significant shortness of breath, is consistent with the acute nature of scombroid poisoning. Additionally, the alleviation of symptoms when sitting up suggests a possible gastrointestinal origin, which aligns with food-related causes like scombroid poisoning. The recent viral infection could have weakened the immune system, making",
+        "ai_contrastive_explanation": "While I think scombroid food poisoning is the correct diagnosis due to the acute nature of symptoms following a viral infection, there are reasons to question this conclusion. Scombroid food poisoning typically presents with symptoms such as flushing, headache, and gastrointestinal issues, which are not mentioned in the patient's case. Additionally, the chest pain and shortness of breath experienced by the patient are more indicative of a cardiac or respiratory issue rather than a histamine reaction commonly associated with scombroid poisoning."
     },
     {
         "qid": 473542,
@@ -33,7 +37,9 @@
         "correct_option": 3,
         "ai_prediction": 3,
         "ai_confidence": "87%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Acute otitis media is the correct diagnosis because the patient presents with bilateral ear pain, which is a classic symptom of this condition. The presence of fever and irritability further supports this diagnosis, as they are common accompanying symptoms of ear infections in children. Additionally, nasal congestion or a runny nose may indicate an upper respiratory infection, which often precedes or accompanies acute otitis media. The lack of travel history and up-to-date vaccinations make other conditions like Chagas less likely.",
+        "ai_contrastive_explanation": "While I think acute otitis media is the correct diagnosis given the symptoms of ear pain, fever, and irritability, it may not be the right diagnosis because the pain is described as sensitive and precisely located, which can sometimes suggest an alternative cause such as a localized skin infection or another ear condition like otitis externa. Additionally, the presence of nasal congestion might indicate a broader upper respiratory issue rather than solely an ear infection."
     },
     {
         "qid": 865026,
@@ -45,7 +51,9 @@
         "correct_option": 1,
         "ai_prediction": 1,
         "ai_confidence": "70%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Viral pharyngitis is the correct diagnosis because the patient exhibits classic symptoms such as throat pain, fever, and nasal congestion, which are common indicators of a viral infection affecting the pharynx. The recent contact with a person with similar symptoms and living with multiple people increase the likelihood of viral transmission. Additionally, her smoking habit and immunosuppressed status may exacerbate her susceptibility to viral infections, further supporting the diagnosis of viral pharyngitis over other conditions.",
+        "ai_contrastive_explanation": "While I think viral pharyngitis is the correct diagnosis due to the patient's sore throat, fever, and contact with a symptomatic individual, it may not fully explain all symptoms. The presence of nasal congestion or a clear runny nose could suggest a broader upper respiratory tract infection. Additionally, the patient's immunosuppressed status might lead to atypical presentations or increased susceptibility to other infections, which viral pharyngitis alone might not account for."
     },
     {
         "qid": 485761,
@@ -57,7 +65,9 @@
         "correct_option": 4,
         "ai_prediction": 4,
         "ai_confidence": "82%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Viral pharyngitis is the correct diagnosis because the patient exhibits classic symptoms such as severe throat pain, fever, and nasal congestion, which align with this condition. The presence of pain in the tonsils, palate, and pharynx, along with the recent contact with someone having similar symptoms, supports a viral etiology. The patient's smoking habit and recent travel do not specifically indicate another condition, and the absence of symptoms like hoarseness or severe airway obstruction makes viral pharyngitis the most",
+        "ai_contrastive_explanation": "While I think viral pharyngitis is the correct diagnosis given the symptoms of sore throat, fever, and nasal congestion, there are reasons to consider other possibilities. The presence of hemoptysis (coughing up blood) is not typical for viral pharyngitis and might suggest a more severe condition. Additionally, the patient's high level of pain intensity and precise pain location could indicate a bacterial infection or another condition that warrants closer examination, such as epiglottitis or a severe bacterial pharyngitis."
     },
     {
         "qid": 248393,
@@ -69,7 +79,9 @@
         "correct_option": 2,
         "ai_prediction": 2,
         "ai_confidence": "69%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Ebola is the correct diagnosis because the patient exhibits several key symptoms and risk factors associated with the virus. The patient has been in contact with someone infected with the Ebola virus and has traveled to West Africa, where the virus is endemic, in the last month. Additionally, the symptoms of confusion, widespread muscle pain, unusual bleeding or bruising, and significant difficulty breathing align with the clinical presentation of Ebola. These factors collectively suggest that Ebola is the most likely diagnosis given the patient's recent exposure and symptomat",
+        "ai_contrastive_explanation": "While I think Ebola is the correct diagnosis due to the patient's recent travel to West Africa, contact with an infected person, and symptoms like confusion, muscle pain, and unusual bleeding, there are reasons it might not be correct. The presentation of shortness of breath and widespread muscle pain could potentially align with other conditions such as myocarditis. Additionally, the patient's symptoms could be explained by a different infectious disease that presents similarly but is more common than Ebola."
     },
     {
         "qid": 477983,
@@ -81,7 +93,9 @@
         "correct_option": 1,
         "ai_prediction": 1,
         "ai_confidence": "89%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Myocarditis is the correct diagnosis because the patient is a 6-year-old who recently had a viral infection, which is a common cause of myocarditis. The symptoms of chest pain, shortness of breath, and palpitations align with myocarditis, which involves inflammation of the heart muscle. The knife-like chest pain and breathlessness with minimal effort further suggest cardiac involvement rather than a condition like Chagas or sarcoidosis, which have different primary symptoms and demographic prevalence. Additionally, the patient's",
+        "ai_contrastive_explanation": "While I think myocarditis is the correct diagnosis due to the recent viral infection and symptoms like chest pain, shortness of breath, and palpitations, it's important to consider other possibilities. The intensity and precision of the pain, along with the lack of radiation, might suggest a more localized issue rather than the diffuse inflammation typically seen in myocarditis. Additionally, the immediate onset of symptoms isn't characteristic of myocarditis, which can develop more gradually. These factors could point to an alternative diagnosis."
     },
     {
         "qid": 859987,
@@ -93,7 +107,9 @@
         "correct_option": 2,
         "ai_prediction": 1,
         "ai_confidence": "87%",
-        "ai_is_correct": false
+        "ai_is_correct": false,
+        "ai_explanation": "Influenza is the correct diagnosis because the patient presents with several classic symptoms associated with this condition, such as fever, nasal congestion, and sore throat, which are common in influenza infections. Additionally, the patient's contact with another individual with similar symptoms and living in a crowded environment increase the likelihood of influenza transmission. The presence of burning throat pain, along with the patient's immunosuppressed status, further supports influenza, as it can exacerbate symptoms and increase vulnerability to viral infections like the flu.",
+        "ai_contrastive_explanation": "While I think Influenza is the correct diagnosis due to the patient's fever, nasal congestion, and exposure to someone with similar symptoms, it may not be the most accurate diagnosis for a couple of reasons. The patient's pain is localized to the tonsils, palate, and pharynx, which is more characteristic of a throat infection like viral pharyngitis. Additionally, the intensity and nature of the pain are mild and specific, which might not align with the more systemic and severe symptoms typically associated with Influenza."
     },
     {
         "qid": 653342,
@@ -105,7 +121,9 @@
         "correct_option": 2,
         "ai_prediction": 2,
         "ai_confidence": "86%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Boerhaave syndrome is the correct diagnosis because the symptoms align with a spontaneous esophageal rupture, which is characterized by severe, sudden onset chest pain and vomiting. The patient's intense pain in the chest and epigastric region, radiating to the thoracic spine and right scapula, coupled with nausea and repeated vomiting, are classic signs of this condition. The acute nature and high intensity of the pain, described as violent and like a knife stroke, further support the diagnosis of Boerhaave",
+        "ai_contrastive_explanation": "While I think Boerhaave syndrome is the correct diagnosis due to the severe pain and vomiting, there are reasons it might not be correct. Boerhaave syndrome usually follows forceful vomiting, which is not explicitly stated in the scenario. Additionally, it often presents with subcutaneous emphysema, which is not mentioned here. These missing details could suggest another condition might be responsible for the patient's symptoms."
     },
     {
         "qid": 802674,
@@ -117,7 +135,9 @@
         "correct_option": 4,
         "ai_prediction": 4,
         "ai_confidence": "60%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "An upper respiratory tract infection (URTI) is the correct diagnosis because the patient's symptoms, including sore throat, nasal congestion, and diffuse muscle pain, are classic indicators of a viral or bacterial infection in the upper respiratory tract. The presence of a headache with pain localized to areas like the forehead and temples is consistent with sinus-related discomfort often accompanying URTIs. The lack of recent travel reduces the likelihood of conditions like Chagas, and the symptom profile does not align with cluster headaches or anemia, making",
+        "ai_contrastive_explanation": "While I think an upper respiratory tract infection (URTI) is the correct diagnosis given the symptoms of sore throat, nasal congestion, and diffuse muscle pain, it's important to consider that the localized head and facial pain described might not typically align with a URTI. Additionally, the intensity and specific locations of the pain, such as the forehead and temples, could suggest a more specialized headache disorder rather than a typical presentation of a URTI. These factors introduce some uncertainty in solely attributing the symptoms to a URTI."
     },
     {
         "qid": 115062,
@@ -129,7 +149,9 @@
         "correct_option": 3,
         "ai_prediction": 1,
         "ai_confidence": "71%",
-        "ai_is_correct": false
+        "ai_is_correct": false,
+        "ai_explanation": "Epiglottitis is the correct diagnosis because the patient presents with symptoms that align with this condition, such as pain in the throat area, specifically the right tonsil, under the jaw, and trachea, along with fever and a recent cold. The hoarseness of voice further supports inflammation in the upper airway, consistent with epiglottitis. The patient's young age and attendance at daycare increase exposure to infections that could lead to this serious condition. While the pain intensity is moderate, the",
+        "ai_contrastive_explanation": "While I think epiglottitis is the correct diagnosis due to the patient's fever, sore throat, and hoarse voice, it may not be the correct diagnosis because the pain intensity is relatively low (3 out of 10). Epiglottitis typically presents with severe throat pain. Additionally, the gradual onset of symptoms is more characteristic of less acute conditions, whereas epiglottitis often develops rapidly and can quickly become life-threatening."
     },
     {
         "qid": 968678,
@@ -141,7 +163,9 @@
         "correct_option": 4,
         "ai_prediction": 4,
         "ai_confidence": "87%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Acute laryngitis is the correct diagnosis because the patient presents with hoarseness, a common symptom of laryngeal inflammation. The burning pain in the throat areas, including the tonsils and pharynx, aligns with the irritation seen in laryngitis. The recent history of a cold and fever suggests a viral infection, which often leads to laryngitis. Additionally, the patient's young age and the absence of severe symptoms like difficulty breathing or swallowing make other more severe conditions less likely",
+        "ai_contrastive_explanation": "While I think acute laryngitis is the correct diagnosis due to the hoarse voice and recent cold, it may not fully explain the burning pain in the tonsils and palate. Acute laryngitis typically involves inflammation of the vocal cords and might not cause significant pain in the tonsils or palate. Additionally, the symptom of burning pain is not a classic presentation of acute laryngitis, which usually causes more irritation and discomfort rather than a burning sensation."
     },
     {
         "qid": 1037884,
@@ -153,7 +177,9 @@
         "correct_option": 1,
         "ai_prediction": 2,
         "ai_confidence": "77%",
-        "ai_is_correct": false
+        "ai_is_correct": false,
+        "ai_explanation": "An upper respiratory tract infection (URTI) is the correct diagnosis because the patient exhibits symptoms commonly associated with such infections, including nasal congestion or a clear runny nose, fever, and irritability. The presence of ear pain, particularly in both ears, can often accompany a URTI due to congestion and pressure in the Eustachian tubes. The patient's sharp ear pain and fever align with typical URTI manifestations, and the lack of international travel or unusual symptoms further supports this common diagnosis.",
+        "ai_contrastive_explanation": "While I think an upper respiratory tract infection (URTI) is the correct diagnosis due to the nasal congestion and fever, this diagnosis may not fully explain the sharp, localized ear pain in both ears. Typically, URTIs are associated with more diffuse symptoms and may not cause such precise ear pain. Additionally, the high level of irritability and mood instability might suggest a more specific issue affecting the ears directly, such as acute otitis media."
     },
     {
         "qid": 895485,
@@ -165,7 +191,9 @@
         "correct_option": 1,
         "ai_prediction": 4,
         "ai_confidence": "51%",
-        "ai_is_correct": false
+        "ai_is_correct": false,
+        "ai_explanation": "Systemic lupus erythematosus (SLE) is the correct diagnosis because it can present with chest pain and shortness of breath, common symptoms in this patient. SLE is known to cause pleuritic chest pain, which can be exacerbated by physical exertion and relieved by rest, aligning with the patient's experience. Additionally, the knife-like chest pain and breathing difficulties can be indicative of pleuritis or pericarditis, both associated with SLE. While SLE is",
+        "ai_contrastive_explanation": "While I think systemic lupus erythematosus (SLE) is the correct diagnosis due to the presence of chest pain and difficulty breathing, it may not be the best fit for this case. SLE is extremely rare in children as young as three years old, and the specific knife-like chest pain described is not typical of SLE, which often presents with more generalized symptoms like fatigue and joint pain. Additionally, the rapid onset and specific location of the pain might suggest a more acute condition than SLE, which is typically chronic and systemic."
     },
     {
         "qid": 885270,
@@ -177,7 +205,9 @@
         "correct_option": 3,
         "ai_prediction": 3,
         "ai_confidence": "73%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Acute laryngitis is the correct diagnosis because the patient exhibits key symptoms such as a hoarse voice and burning throat pain, which are characteristic of this condition. The recent cold and travel history to North America may have exposed the patient to viral infections that often lead to laryngitis. The intense, localized pain and fever align with the inflammation of the larynx, commonly seen in acute laryngitis. Additionally, the absence of pain radiating to other locations and the patient's age support this",
+        "ai_contrastive_explanation": "While I think acute laryngitis is the correct diagnosis due to the hoarseness in the patient's voice and recent cold, it may not be the correct diagnosis because the pain is unusually intense and localized, which is atypical for laryngitis. Additionally, the presence of a high fever and specific pain in the right tonsil and under the jaw could suggest a more severe infection or inflammation, such as epiglottitis, which can present with similar symptoms but requires urgent attention."
     },
     {
         "qid": 749594,
@@ -189,7 +219,9 @@
         "correct_option": 3,
         "ai_prediction": 3,
         "ai_confidence": "83%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Anemia is the correct diagnosis because the patient exhibits classic symptoms such as fatigue, pallor, dizziness, and lightheadedness, which align with their existing diagnosis of anemia. The presence of light red blood in the stool suggests gastrointestinal bleeding, a common cause of anemia. Additionally, the patient's poor diet and underweight status further support the likelihood of nutritional deficiencies contributing to anemia. The other conditions listed do not comprehensively account for all these symptoms, particularly the chronic fatigue and pale skin.",
+        "ai_contrastive_explanation": "While I think anemia is the correct diagnosis due to the patient's symptoms of fatigue, pallor, and lightheadedness, it may not fully account for the localized head pain described. Anemia typically causes generalized symptoms rather than specific, non-radiating head pain. Additionally, the presence of blood in the stool and the use of NOACs could suggest an alternative or concurrent condition, such as gastrointestinal bleeding, that may also need to be addressed."
     },
     {
         "qid": 332679,
@@ -201,7 +233,9 @@
         "correct_option": 2,
         "ai_prediction": 2,
         "ai_confidence": "55%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Bronchitis is the correct diagnosis because the patient's symptoms, such as a cough, sore throat, and chest pain, align with common manifestations of bronchitis. The presence of chronic obstructive pulmonary disease (COPD) and a smoking habit further increase the likelihood of bronchitis, as these are significant risk factors. Additionally, the pain being more prominent at night and its non-radiating nature are consistent with bronchitis-related discomfort rather than conditions like GERD or pneumonia. The combination of these factors",
+        "ai_contrastive_explanation": "While I think bronchitis is the correct diagnosis due to the patient's cough, smoking history, and COPD, there are reasons it may not be the right diagnosis. The absence of rapid onset and the patient's specific description of the pain as sensitive and burning might suggest a non-infectious cause. Additionally, the pain's precision and the lack of radiation do not typically align with the diffuse discomfort often seen in bronchitis. These factors may indicate the need to consider other conditions with similar presentations."
     },
     {
         "qid": 64131,
@@ -213,7 +247,9 @@
         "correct_option": 2,
         "ai_prediction": 2,
         "ai_confidence": "51%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Bronchitis is the correct diagnosis because the patient's symptoms, including cough and sore throat, align with respiratory tract inflammation typical of bronchitis. The chest pain, which is sensitive and precisely located, can result from coughing and inflammation of the airways. Additionally, the symptoms being more prominent at night are consistent with bronchitis, as coughing often worsens when lying down. The absence of foreign travel also supports bronchitis, as it is a common condition not linked to travel history.",
+        "ai_contrastive_explanation": "While I think bronchitis is the correct diagnosis due to the presence of a cough and chest pain, it may not fully explain the localized nature of the pain described by the patient. Typically, bronchitis involves diffuse chest discomfort rather than pain that is precisely located in specific regions. Additionally, the absence of international travel reduces the likelihood of exposure to certain pathogens that might cause bronchitis, suggesting that other respiratory conditions could be considered."
     },
     {
         "qid": 1081163,
@@ -225,7 +261,9 @@
         "correct_option": 4,
         "ai_prediction": 4,
         "ai_confidence": "81%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Paroxysmal supraventricular tachycardia (PSVT) is the correct diagnosis because the patient experiences palpitations and a sensation of a fast or irregular heartbeat, which are hallmark symptoms of PSVT. The regular intake of stimulant drugs, coffee, tea, and energy drinks can trigger or exacerbate episodes of PSVT by increasing heart rate and excitability of the cardiac tissue. The patient's lightheadedness, dizziness, and sensation of fainting align with the decreased cardiac output during",
+        "ai_contrastive_explanation": "While I think paroxysmal supraventricular tachycardia (PSVT) is the correct diagnosis due to the patient's symptoms of palpitations and dizziness, it may not be the correct diagnosis because these symptoms can also result from excessive caffeine or stimulant drug use. The patient's regular consumption of energy drinks and stimulant drugs could cause similar cardiovascular symptoms, making it challenging to distinguish between PSVT and the effects of these substances without further diagnostic testing."
     },
     {
         "qid": 945992,
@@ -237,7 +275,9 @@
         "correct_option": 2,
         "ai_prediction": 2,
         "ai_confidence": "89%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Anemia is the correct diagnosis because the patient exhibits classic symptoms such as fatigue, dizziness, lightheadedness, and a history of anemia within the family. The poor diet and underweight BMI further support this condition, as nutritional deficiencies are common causes of anemia. Additionally, the presence of black stools and light red blood may indicate gastrointestinal bleeding, a potential source of blood loss leading to anemia. The combination of these symptoms aligns more closely with anemia than with the other conditions listed.",
+        "ai_contrastive_explanation": "While I think anemia is the correct diagnosis due to the patient's poor diet, family history, and symptoms like fatigue and dizziness, it may not fully account for the recent gastrointestinal symptoms such as black stools and blood in the stool. These symptoms could indicate a gastrointestinal bleed or another underlying condition. Additionally, the patient's chronic kidney failure could contribute to their anemia-like symptoms, complicating the diagnosis."
     },
     {
         "qid": 451394,
@@ -249,7 +289,9 @@
         "correct_option": 4,
         "ai_prediction": 4,
         "ai_confidence": "57%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Myocarditis is the correct diagnosis because it can occur following a viral infection and is characterized by chest pain, which aligns with the patient's recent viral illness and described knife-like chest pain. Additionally, myocarditis can lead to symptoms such as shortness of breath and increased discomfort with physical exertion, both of which are present in this case. The absence of travel history and the specific nature of the pain further support myocarditis over other conditions like systemic lupus erythematosus, scombroid food",
+        "ai_contrastive_explanation": "While I think myocarditis is the correct diagnosis due to the recent viral infection and chest pain symptoms, it may not be the correct diagnosis because myocarditis in a young child can be rare and often presents with additional symptoms like fever or palpitations, which are not mentioned here. Furthermore, the precise location and nature of the pain might suggest another condition affecting the chest wall or pleura rather than the heart itself."
     },
     {
         "qid": 1152969,
@@ -261,7 +303,9 @@
         "correct_option": 1,
         "ai_prediction": 1,
         "ai_confidence": "73%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Paroxysmal supraventricular tachycardia (PSVT) is the correct diagnosis because the patient's symptoms of lightheadedness, dizziness, and palpitations align with episodes of rapid heart rate associated with PSVT. The absence of pain and the regular consumption of caffeine and energy drinks could act as potential triggers for PSVT episodes, further supporting this diagnosis. Unlike anemia, which typically presents with fatigue and other systemic symptoms, or scombroid food poisoning, which often involves gastrointestinal issues",
+        "ai_contrastive_explanation": "While I think Paroxysmal supraventricular tachycardia (PSVT) is the correct diagnosis due to the symptoms of palpitations and dizziness, it may not be the correct diagnosis because these symptoms can also be caused by excessive caffeine intake from coffee, tea, and energy drinks. Additionally, PSVT is typically associated with more sudden onset episodes, whereas the patient's symptoms could be more chronic and related to lifestyle factors. Therefore, it is possible that the symptoms are not indicative of a cardiac issue but rather a result of stimulant consumption."
     },
     {
         "qid": 119997,
@@ -273,7 +317,9 @@
         "correct_option": 2,
         "ai_prediction": 2,
         "ai_confidence": "77%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Bronchitis is the correct diagnosis because the patient exhibits symptoms such as a cough, sore throat, and burning chest pain, which are consistent with inflammation of the bronchial tubes. The presence of COPD can exacerbate these symptoms, making bronchitis more likely. Additionally, the symptoms being more prominent at night aligns with bronchitis, as coughing and respiratory discomfort often worsen when lying down. The patient's vaccinations being up to date reduces the likelihood of pneumonia, making bronchitis a more plausible diagnosis.",
+        "ai_contrastive_explanation": "While I think bronchitis is the correct diagnosis due to the patient's cough and COPD, there are reasons it may not be correct. The intensity and precise location of the chest pain, along with the burning sensation, are atypical for bronchitis, which usually presents with more diffuse discomfort. Additionally, the patient's symptoms being more prominent at night could suggest an alternative condition, such as a gastroesophageal issue, rather than bronchitis."
     },
     {
         "qid": 343808,
@@ -285,7 +331,9 @@
         "correct_option": 4,
         "ai_prediction": 3,
         "ai_confidence": "73%",
-        "ai_is_correct": false
+        "ai_is_correct": false,
+        "ai_explanation": "Possible NSTEMI/STEMI is the correct diagnosis because the patient's presentation of severe, radiating chest pain, described as haunting and knife-like, aligns with symptoms of acute coronary syndromes. The pain's intensity and radiation to the upper chest are characteristic of myocardial ischemia. Additionally, the patient's risk factors, including excessive alcohol consumption, smoking, and potential pregnancy, can contribute to increased cardiovascular stress, heightening the risk of a cardiac event. While gastroesophageal reflux disease could explain some symptoms",
+        "ai_contrastive_explanation": "While I think a possible NSTEMI/STEMI is the correct diagnosis given the chest pain and its intensity, it may not be the correct diagnosis because the patient's symptoms also align with gastroesophageal reflux disease (GERD). The burning sensation starting in the stomach and moving to the throat, coupled with symptoms worsening after eating, strongly suggest GERD. Additionally, the patient's young age and pregnancy could make GERD more plausible than a cardiac event."
     },
     {
         "qid": 507233,
@@ -297,7 +345,9 @@
         "correct_option": 1,
         "ai_prediction": 1,
         "ai_confidence": "56%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Boerhaave syndrome is the correct diagnosis because it involves a spontaneous esophageal rupture often associated with forceful vomiting, which aligns with the patient's repeated vomiting efforts. The intense and widespread pain, particularly in the thoracic spine and right scapula, is consistent with the severe chest and back pain experienced in Boerhaave syndrome. Additionally, the presence of alcohol addiction can increase the risk of esophageal tears due to vomiting, further supporting Boerhaave syndrome as the likely diagnosis.",
+        "ai_contrastive_explanation": "While I think Boerhaave syndrome is the correct diagnosis due to the severe and radiating nature of the pain, there are reasons it might not fit perfectly. Boerhaave syndrome typically involves a history of forceful vomiting, which is present, but the patient's age and excessive alcohol consumption are less common factors for this condition in a 10-year-old. Additionally, Boerhaave syndrome often presents with subcutaneous emphysema, which is not mentioned in the patient's symptoms. These discrepancies could suggest an alternative diagnosis."
     },
     {
         "qid": 292879,
@@ -309,7 +359,9 @@
         "correct_option": 3,
         "ai_prediction": 3,
         "ai_confidence": "88%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "An upper respiratory tract infection (URTI) is the correct diagnosis because the patient exhibits symptoms commonly associated with URTIs, such as sore throat, nasal congestion, and diffuse muscle pain. The recent contact with a person with similar symptoms and attendance at daycare suggest a contagious condition like a URTI. The patient's localized facial pain in the forehead, cheeks, and temples can be attributed to sinus congestion often seen in URTIs. Additionally, the lack of travel history and exposure to secondhand smoke further",
+        "ai_contrastive_explanation": "While I think an upper respiratory tract infection (URTI) is the correct diagnosis due to symptoms like sore throat, nasal congestion, and contact with a person with similar symptoms, there are reasons it may not be correct. The patient's precise, non-radiating pain and heavy pain intensity localized to specific facial areas could suggest a condition more related to headaches or sinus issues rather than a typical URTI. Additionally, the presence of diffuse muscle pain is not a classic symptom of URTI, which might point towards another condition."
     },
     {
         "qid": 448598,
@@ -321,7 +373,9 @@
         "correct_option": 2,
         "ai_prediction": 2,
         "ai_confidence": "61%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Ebola is the correct diagnosis because the patient presents with key symptoms and risk factors associated with the virus. The patient has been in contact with someone infected with Ebola and has traveled to West Africa, a region known for Ebola outbreaks, within the last month. Additionally, the symptoms of diarrhea, fatigue, sore throat, unusual bleeding or bruising, and cough align with the clinical presentation of Ebola. These factors strongly suggest that Ebola is the most likely diagnosis given the patient's recent exposure and symptomatology.",
+        "ai_contrastive_explanation": "While I think Ebola is the correct diagnosis due to the patient's recent travel to West Africa and contact with an infected person, there are reasons it may not be the case. The symptoms such as a sore throat and cough could be attributed to common respiratory infections like bronchitis. Additionally, the presence of unusual bleeding or bruising, although concerning for Ebola, could potentially be explained by other conditions or medications affecting coagulation."
     },
     {
         "qid": 935275,
@@ -333,7 +387,9 @@
         "correct_option": 3,
         "ai_prediction": 4,
         "ai_confidence": "57%",
-        "ai_is_correct": false
+        "ai_is_correct": false,
+        "ai_explanation": "Acute otitis media is the correct diagnosis because the patient's symptoms, including a sore throat, nasal congestion, and exposure to cigarette smoke, can lead to inflammation and infection in the middle ear. The intense and localized head pain, particularly around the top of the head and temple, aligns with the discomfort typically associated with ear infections. Additionally, the patient's exposure to secondhand smoke and attendance at daycare increase the risk of developing such infections due to increased exposure to pathogens. These factors collectively support the diagnosis of",
+        "ai_contrastive_explanation": "While I think acute otitis media is the correct diagnosis due to the patient's symptoms and risk factors, there are reasons it may not be accurate. The primary location of the patient's pain is the top of the head, occiput, and left temple, which is not typical for ear infections, as they usually cause ear pain. Additionally, the presence of widespread muscle pain and sore throat might suggest a more systemic issue, such as an upper respiratory tract infection, rather than a localized ear condition."
     },
     {
         "qid": 569204,
@@ -345,7 +401,9 @@
         "correct_option": 1,
         "ai_prediction": 1,
         "ai_confidence": "75%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Acute otitis media is the correct diagnosis because the patient presents with bilateral ear pain, which is a key symptom of this condition. The recent or ongoing treatment with an oral antibiotic for an ear infection suggests a current or recurrent case of acute otitis media. The presence of fever and nasal congestion further supports this diagnosis, as they are common accompanying symptoms. The intensity and localized nature of the pain align with the typical presentation of acute otitis media in children.",
+        "ai_contrastive_explanation": "While I think acute otitis media is the correct diagnosis due to the ear pain and fever, there are reasons why it might not be the case. The presence of nasal congestion and a runny nose could suggest an upper respiratory tract infection, which might be causing referred ear pain rather than a direct infection of the middle ear. Additionally, the fact that the patient is already on antibiotics could mean that the initial ear infection is resolving, and the current symptoms might be due to another condition."
     },
     {
         "qid": 1140870,
@@ -357,6 +415,8 @@
         "correct_option": 3,
         "ai_prediction": 3,
         "ai_confidence": "70%",
-        "ai_is_correct": true
+        "ai_is_correct": true,
+        "ai_explanation": "Gastroesophageal reflux disease (GERD) is the correct diagnosis because the patient's symptoms, including chest pain that worsens after eating and when lying down, are classic indicators of GERD. The pain's alleviation when sitting up further supports this diagnosis, as this position reduces acid reflux. Additionally, the patient's hiatal hernia and excessive alcohol consumption are known risk factors for GERD, which align with the patient's symptoms and medical history. The absence of travel and the nature of the pain being",
+        "ai_contrastive_explanation": "While I think gastroesophageal reflux disease (GERD) is the correct diagnosis due to symptoms worsening after eating and when lying down, there are reasons it may not be the right diagnosis. The intensity and character of the pain, described as a knife stroke and tugging, could indicate a more serious cardiac issue like a myocardial infarction. Additionally, the patient's significant alcohol use and obesity could contribute to other conditions, such as pancreatitis, which might explain the severe and radiating pain."
     }
 ]
